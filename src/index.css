@@ -32,7 +32,7 @@ body {
 
 /* Header Styles */
 .header {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #ff8c42 0%, #ff6b1a 100%);
   color: white;
   padding: 0.75rem 1rem;
   position: sticky;
@@ -268,9 +268,9 @@ body {
 }
 
 .tab.active {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #ff8c42 0%, #ff6b1a 100%);
   color: white;
-  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+  box-shadow: 0 2px 8px rgba(255, 140, 66, 0.3);
 }
 
 .tab:not(.active):hover {
@@ -344,7 +344,7 @@ body {
 }
 
 .add-button {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #ff8c42 0%, #ff6b1a 100%);
   color: white;
   border: none;
   padding: 0.5rem 1rem;
@@ -356,7 +356,7 @@ body {
 
 .add-button:hover {
   transform: translateY(-1px);
-  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+  box-shadow: 0 2px 8px rgba(255, 140, 66, 0.3);
 }
 
 /* Modal Styles */
@@ -474,8 +474,8 @@ body {
 }
 
 .variant-option:hover {
-  border-color: #667eea;
-  background: #f8f9ff;
+  border-color: #ff8c42;
+  background: #fff8f3;
 }
 
 .variant-option input[type="radio"] {
@@ -484,7 +484,7 @@ body {
 
 .variant-option input[type="radio"]:checked + .variant-label {
   font-weight: 600;
-  color: #667eea;
+  color: #ff8c42;
 }
 
 .quantity-selection {
@@ -519,9 +519,9 @@ body {
 }
 
 .quantity-button:hover:not(:disabled) {
-  background: #667eea;
+  background: #ff8c42;
   color: white;
-  border-color: #667eea;
+  border-color: #ff8c42;
 }
 
 .quantity-button:disabled {
@@ -575,14 +575,14 @@ body {
 }
 
 .add-to-cart-button {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #ff8c42 0%, #ff6b1a 100%);
   border: none;
   color: white;
 }
 
 .add-to-cart-button:hover:not(:disabled) {
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+  box-shadow: 0 4px 12px rgba(255, 140, 66, 0.3);
 }
 
 .add-to-cart-button:disabled {
@@ -701,7 +701,7 @@ body {
 
 .item-variant {
   font-size: 0.85rem;
-  color: #667eea;
+  color: #ff8c42;
   font-weight: 500;
   margin-bottom: 0.25rem;
 }
@@ -867,10 +867,10 @@ body {
 }
 
 .order-id {
-  background: #f8f9fa;
+  background: #fff8f3;
   padding: 0.75rem;
   border-radius: 8px;
-  color: #667eea;
+  color: #ff8c42;
   font-size: 1rem;
   margin-top: 1rem;
 }
@@ -906,8 +906,8 @@ body {
   font-size: 0.9rem;
   padding: 0.25rem 0.5rem;
   border-radius: 12px;
-  background: #e8f4fd;
-  color: #667eea;
+  background: #fff8f3;
+  color: #ff8c42;
 }
 
 .items-list {
@@ -993,7 +993,7 @@ body {
 }
 
 .new-order-button {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #ff8c42 0%, #ff6b1a 100%);
   color: white;
   border: none;
   padding: 1rem 2rem;
@@ -1006,7 +1006,7 @@ body {
 
 .new-order-button:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 16px rgba(102, 126, 234, 0.3);
+  box-shadow: 0 4px 16px rgba(255, 140, 66, 0.3);
 }
 
 /* Loading and Error States */
@@ -1267,7 +1267,7 @@ body {
 }
 
 .start-ordering-button {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #ff8c42 0%, #ff6b1a 100%);
   color: white;
   border: none;
   padding: 1rem 2rem;
@@ -1280,7 +1280,7 @@ body {
 
 .start-ordering-button:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 16px rgba(102, 126, 234, 0.3);
+  box-shadow: 0 4px 16px rgba(255, 140, 66, 0.3);
 }
 
 .orders-list {
@@ -1361,7 +1361,7 @@ body {
 
 .item-variant {
   font-size: 0.85rem;
-  color: #667eea;
+  color: #ff8c42;
   font-style: italic;
 }
 
@@ -1475,6 +1475,8 @@ body {
     min-width: 1.2rem;
     height: 1.2rem;
     padding: 0.2rem 0.4rem;
+    z-index: 10;
+    font-weight: bold;
   }
   
   .menu-grid {
@@ -1520,7 +1522,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #ff8c42 0%, #ff6b1a 100%);
   padding: 2rem;
 }
 
@@ -1571,7 +1573,7 @@ body {
 }
 
 .table-button {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #ff8c42 0%, #ff6b1a 100%);
   color: white;
   border: none;
   padding: 1rem;
@@ -1584,15 +1586,15 @@ body {
 
 .table-button:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 16px rgba(102, 126, 234, 0.3);
+  box-shadow: 0 4px 16px rgba(255, 140, 66, 0.3);
 }
 
 .help-text {
   margin-top: 2rem;
   padding: 1rem;
-  background: #e8f4fd;
+  background: #fff8f3;
   border-radius: 8px;
-  border-left: 4px solid #667eea;
+  border-left: 4px solid #ff8c42;
 }
 
 .help-text p {

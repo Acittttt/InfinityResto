@@ -35,7 +35,7 @@ const Layout: React.FC<LayoutProps> = ({ children, tableNumber }) => {
       <header className="header">
         <div className="header-content">
           <div className="restaurant-info">
-            <h1>Infinity Resto</h1>
+            <h1>Garuda Infinity</h1>
             <p>Pesanan untuk Meja {tableNumber}</p>
           </div>
           
@@ -74,7 +74,7 @@ const Layout: React.FC<LayoutProps> = ({ children, tableNumber }) => {
 
       {/* Footer */}
       <footer className="footer">
-        <p>&copy; 2025 Infinity Resto. All rights reserved.</p>
+        <p>&copy; 2025 Garuda Infinity. All rights reserved.</p>
       </footer>
     </div>
   );
