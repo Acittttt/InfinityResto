@@ -1,2 +1,9 @@
 /* Infinity Resto - Custom App Styles */
 /* All main styles are in index.css */
+
+.app {
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
+  position: relative;
+}

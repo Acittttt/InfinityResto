@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Layout from '../components/Layout';
 import CartDisplay from '../components/CartDisplay';
+import SuccessPopup from '../components/SuccessPopup';
 import { useCart } from '../context/CartContext';
 import { createOrder } from '../services/orderService';
 import { Loader2 } from 'lucide-react';
@@ -12,6 +13,8 @@ const Cart: React.FC = () => {
   const { state, clearCart } = useCart();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
+  const [showSuccessPopup, setShowSuccessPopup] = useState(false);
+  const [orderSuccess, setOrderSuccess] = useState<{ orderId: string; totalItems: number } | null>(null);
 
   const handleSubmitOrder = async () => {
     if (state.items.length === 0) {
@@ -48,8 +51,12 @@ const Cart: React.FC = () => {
       // Store order ID for confirmation page
       sessionStorage.setItem('lastOrderId', order.id);
       
-      // Navigate to confirmation page
-      navigate(`/meja/${tableNumber}/confirmation`);
+      // Show success popup
+      setOrderSuccess({
+        orderId: order.id,
+        totalItems: state.totalItems
+      });
+      setShowSuccessPopup(true);
       
     } catch (error) {
       console.error('Error submitting order:', error);
@@ -65,6 +72,13 @@ const Cart: React.FC = () => {
 
   const handleBackToMenu = () => {
     navigate(`/meja/${tableNumber}`);
+  };
+
+  const handleSuccessPopupClose = () => {
+    setShowSuccessPopup(false);
+    setOrderSuccess(null);
+    // Navigate to confirmation page after popup closes
+    navigate(`/meja/${tableNumber}/confirmation`);
   };
 
   return (
@@ -114,6 +128,15 @@ const Cart: React.FC = () => {
           )}
         </div>
       </div>
+      
+      {/* Success Popup */}
+      <SuccessPopup
+        isOpen={showSuccessPopup}
+        title="Pesanan Berhasil!"
+        message={`Pesanan Anda dengan ${orderSuccess?.totalItems || 0} item telah berhasil dikirim ke dapur. Silakan tunggu konfirmasi dari pelayan.`}
+        onClose={handleSuccessPopupClose}
+        autoCloseDelay={4000}
+      />
     </Layout>
   );
 };

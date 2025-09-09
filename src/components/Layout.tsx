@@ -43,21 +43,21 @@ const Layout: React.FC<LayoutProps> = ({ children, tableNumber }) => {
             <div className="header-actions">
               {!isCartPage && !isHistoryPage && (
                 <button onClick={handleGoToMenu} className="menu-button">
-                  <Home size={20} />
-                  Menu
+                  <Home size={18} />
+                  <span>Menu</span>
                 </button>
               )}
               
               {!isHistoryPage && (
                 <button onClick={handleGoToHistory} className="history-button">
-                  <History size={20} />
-                  Riwayat
+                  <History size={18} />
+                  <span>Riwayat</span>
                 </button>
               )}
               
               <button onClick={handleGoToCart} className="cart-button">
-                <ShoppingCart size={20} />
-                Keranjang
+                <ShoppingCart size={18} />
+                <span>Keranjang</span>
                 {state.totalItems > 0 && (
                   <span className="cart-badge">{state.totalItems}</span>
                 )}

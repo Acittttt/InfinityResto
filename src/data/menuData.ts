@@ -5,6 +5,7 @@ export interface MenuItem {
   description: string;
   category: 'makanan' | 'minuman';
   image?: string;
+  allowedVariants?: string[]; // For custom variant restrictions
 }
 
 export interface MenuVariant {
@@ -71,9 +72,9 @@ export const menuData: MenuItem[] = [
   // Minuman
   {
     id: 'minum-001',
-    name: 'Es Teh Manis',
+    name: 'Teh Manis',
     price: 8000,
-    description: 'Teh manis segar dengan es batu',
+    description: 'Teh manis segar - tersedia dingin atau panas',
     category: 'minuman'
   },
   {
@@ -88,14 +89,16 @@ export const menuData: MenuItem[] = [
     name: 'Jus Jeruk',
     price: 15000,
     description: 'Jus jeruk segar tanpa gula tambahan',
-    category: 'minuman'
+    category: 'minuman',
+    allowedVariants: ['Dingin'] // Only cold option
   },
   {
     id: 'minum-004',
-    name: 'Es Campur',
+    name: 'Campur Segar',
     price: 18000,
-    description: 'Es campur dengan berbagai topping',
-    category: 'minuman'
+    description: 'Minuman campur dengan berbagai topping segar',
+    category: 'minuman',
+    allowedVariants: ['Dingin'] // Only cold option makes sense
   },
   {
     id: 'minum-005',
@@ -109,7 +112,8 @@ export const menuData: MenuItem[] = [
     name: 'Air Mineral',
     price: 5000,
     description: 'Air mineral kemasan 600ml',
-    category: 'minuman'
+    category: 'minuman',
+    allowedVariants: ['Dingin'] // Only cold option
   }
 ];
 

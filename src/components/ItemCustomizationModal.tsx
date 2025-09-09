@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { formatPrice } from '../data/menuData';
 import type { MenuItem } from '../data/menuData';
 import { useCart } from '../context/CartContext';
+import SuccessPopup from './SuccessPopup';
 import { X, Plus, Minus } from 'lucide-react';
 
 interface ItemCustomizationModalProps {
@@ -18,13 +19,18 @@ const ItemCustomizationModal: React.FC<ItemCustomizationModalProps> = ({
   const { addItem } = useCart();
   const [quantity, setQuantity] = useState(1);
   const [selectedVariant, setSelectedVariant] = useState<string>('');
+  const [showSuccessPopup, setShowSuccessPopup] = useState(false);
+  const [addedItemDetails, setAddedItemDetails] = useState<{ name: string; variant: string; quantity: number } | null>(null);
 
   if (!isOpen) return null;
 
   const isFoodItem = item.category === 'makanan';
-  const variantOptions = isFoodItem 
+  const defaultVariantOptions = isFoodItem 
     ? ['Pedas', 'Tidak Pedas']
     : ['Dingin', 'Panas'];
+  
+  // Use custom allowed variants if specified, otherwise use default
+  const variantOptions = item.allowedVariants || defaultVariantOptions;
 
   const handleVariantChange = (variant: string) => {
     setSelectedVariant(variant);
@@ -48,16 +54,27 @@ const ItemCustomizationModal: React.FC<ItemCustomizationModalProps> = ({
 
     addItem(item, variant, quantity);
     
-    // Reset form and close modal
-    setQuantity(1);
-    setSelectedVariant('');
-    onClose();
+    // Store details for success popup
+    setAddedItemDetails({
+      name: item.name,
+      variant: selectedVariant,
+      quantity: quantity
+    });
     
-    // Show success message
-    alert(`${item.name} (${selectedVariant}) berhasil ditambahkan ke keranjang!`);
+    // Show success popup
+    setShowSuccessPopup(true);
   };
 
   const handleClose = () => {
+    setQuantity(1);
+    setSelectedVariant('');
+    onClose();
+  };
+
+  const handleSuccessPopupClose = () => {
+    setShowSuccessPopup(false);
+    setAddedItemDetails(null);
+    // Reset form and close modal after success popup
     setQuantity(1);
     setSelectedVariant('');
     onClose();
@@ -147,6 +164,18 @@ const ItemCustomizationModal: React.FC<ItemCustomizationModalProps> = ({
           </button>
         </div>
       </div>
+      
+      {/* Success Popup */}
+      <SuccessPopup
+        isOpen={showSuccessPopup}
+        title="Ditambahkan ke Keranjang!"
+        message={addedItemDetails ? 
+          `${addedItemDetails.name} (${addedItemDetails.variant}) x${addedItemDetails.quantity} berhasil ditambahkan ke keranjang!` :
+          'Item berhasil ditambahkan ke keranjang!'
+        }
+        onClose={handleSuccessPopupClose}
+        autoCloseDelay={2500}
+      />
     </div>
   );
 };
