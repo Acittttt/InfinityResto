@@ -1,12 +1,9 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
 import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import TableOrder from './pages/TableOrder';
 import Cart from './pages/Cart';
 import OrderConfirmation from './pages/OrderConfirmation';
+import './App.css';
 
 const App: React.FC = () => {
   return (
@@ -22,4 +19,4 @@ const App: React.FC = () => {
   );
 };
 
-export default App
+export default App;

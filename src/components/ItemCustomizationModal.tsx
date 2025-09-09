@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { formatPrice } from '../data/menuData';
-import type { MenuItem, MenuVariant } from '../data/menuData';
+import type { MenuItem } from '../data/menuData';
 import { useCart } from '../context/CartContext';
 import { X, Plus, Minus } from 'lucide-react';
 
