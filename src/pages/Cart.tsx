@@ -77,6 +77,8 @@ const Cart: React.FC = () => {
   const handleSuccessPopupClose = () => {
     setShowSuccessPopup(false);
     setOrderSuccess(null);
+    // Clear cart after successful order
+    clearCart();
     // Navigate to confirmation page after popup closes
     navigate(`/meja/${tableNumber}/confirmation`);
   };
