@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { getMenuByCategory, formatPrice } from '../data/menuData';
+import { getMenuByCategory, getSubcategoriesByCategory, getMenuBySubcategory, formatPrice } from '../data/menuData';
 import type { MenuItem } from '../data/menuData';
 
 interface MenuDisplayProps {
@@ -8,8 +8,18 @@ interface MenuDisplayProps {
 
 const MenuDisplay: React.FC<MenuDisplayProps> = ({ onItemSelect }) => {
   const [activeCategory, setActiveCategory] = useState<'makanan' | 'minuman'>('makanan');
+  const [activeSubcategory, setActiveSubcategory] = useState<string>('all');
 
-  const menuItems = getMenuByCategory(activeCategory);
+  const subcategories = getSubcategoriesByCategory(activeCategory);
+  
+  const menuItems = activeSubcategory === 'all' 
+    ? getMenuByCategory(activeCategory)
+    : getMenuBySubcategory(activeCategory, activeSubcategory);
+
+  const handleCategoryChange = (category: 'makanan' | 'minuman') => {
+    setActiveCategory(category);
+    setActiveSubcategory('all'); // Reset subcategory when changing main category
+  };
 
   return (
     <div className="menu-display">
@@ -17,16 +27,35 @@ const MenuDisplay: React.FC<MenuDisplayProps> = ({ onItemSelect }) => {
       <div className="category-tabs">
         <button
           className={`tab ${activeCategory === 'makanan' ? 'active' : ''}`}
-          onClick={() => setActiveCategory('makanan')}
+          onClick={() => handleCategoryChange('makanan')}
         >
           🍽️ Makanan
         </button>
         <button
           className={`tab ${activeCategory === 'minuman' ? 'active' : ''}`}
-          onClick={() => setActiveCategory('minuman')}
+          onClick={() => handleCategoryChange('minuman')}
         >
           🥤 Minuman
         </button>
+      </div>
+
+      {/* Subcategory Filter */}
+      <div className="subcategory-filters">
+        <button
+          className={`filter-button ${activeSubcategory === 'all' ? 'active' : ''}`}
+          onClick={() => setActiveSubcategory('all')}
+        >
+          Semua
+        </button>
+        {subcategories.map((subcategory) => (
+          <button
+            key={subcategory}
+            className={`filter-button ${activeSubcategory === subcategory ? 'active' : ''}`}
+            onClick={() => setActiveSubcategory(subcategory)}
+          >
+            {subcategory}
+          </button>
+        ))}
       </div>
 
       {/* Menu Items Grid */}
@@ -46,6 +75,7 @@ const MenuDisplay: React.FC<MenuDisplayProps> = ({ onItemSelect }) => {
             
             <div className="menu-item-info">
               <h3 className="item-name">{item.name}</h3>
+              <p className="item-subcategory">{item.subcategory}</p>
               <p className="item-description">{item.description}</p>
               <div className="item-price">
                 {formatPrice(item.price)}
