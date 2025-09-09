@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
-import { ShoppingCart, Home } from 'lucide-react';
+import { ShoppingCart, Home, History } from 'lucide-react';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -21,8 +21,13 @@ const Layout: React.FC<LayoutProps> = ({ children, tableNumber }) => {
     navigate(`/meja/${tableNumber}`);
   };
 
+  const handleGoToHistory = () => {
+    navigate(`/meja/${tableNumber}/history`);
+  };
+
   const isCartPage = location.pathname.includes('/cart');
   const isConfirmationPage = location.pathname.includes('/confirmation');
+  const isHistoryPage = location.pathname.includes('/history');
 
   return (
     <div className="layout">
@@ -36,10 +41,17 @@ const Layout: React.FC<LayoutProps> = ({ children, tableNumber }) => {
           
           {!isConfirmationPage && (
             <div className="header-actions">
-              {!isCartPage && (
+              {!isCartPage && !isHistoryPage && (
                 <button onClick={handleGoToMenu} className="menu-button">
                   <Home size={20} />
                   Menu
+                </button>
+              )}
+              
+              {!isHistoryPage && (
+                <button onClick={handleGoToHistory} className="history-button">
+                  <History size={20} />
+                  Riwayat
                 </button>
               )}
               

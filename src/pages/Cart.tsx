@@ -1,22 +1,56 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Layout from '../components/Layout';
 import CartDisplay from '../components/CartDisplay';
 import { useCart } from '../context/CartContext';
+import { createOrder } from '../services/orderService';
+import { Loader2 } from 'lucide-react';
 
 const Cart: React.FC = () => {
   const { tableNumber } = useParams<{ tableNumber: string }>();
   const navigate = useNavigate();
   const { state, clearCart } = useCart();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
-  const handleSubmitOrder = () => {
+  const handleSubmitOrder = async () => {
     if (state.items.length === 0) {
       alert('Keranjang belanja kosong! Silakan tambahkan item terlebih dahulu.');
       return;
     }
-    
-    // Navigate to confirmation page
-    navigate(`/meja/${tableNumber}/confirmation`);
+
+    if (!tableNumber) {
+      alert('Nomor meja tidak valid!');
+      return;
+    }
+
+    setIsSubmitting(true);
+    setSubmitError(null);
+
+    try {
+      // Create order in database
+      const { order, error } = await createOrder(parseInt(tableNumber), state.items);
+      
+      if (error) {
+        throw new Error(error);
+      }
+
+      // Store order ID for confirmation page
+      sessionStorage.setItem('lastOrderId', order.id);
+      
+      // Navigate to confirmation page
+      navigate(`/meja/${tableNumber}/confirmation`);
+      
+    } catch (error) {
+      console.error('Error submitting order:', error);
+      setSubmitError(
+        error instanceof Error 
+          ? error.message 
+          : 'Gagal mengirim pesanan. Silakan coba lagi.'
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleBackToMenu = () => {
@@ -35,16 +69,32 @@ const Cart: React.FC = () => {
         
         <CartDisplay />
         
+        {submitError && (
+          <div className="error-message">
+            <p>❌ {submitError}</p>
+            <button onClick={() => setSubmitError(null)} className="close-error">
+              ✕
+            </button>
+          </div>
+        )}
+        
         <div className="cart-actions">
           <button 
             onClick={handleSubmitOrder}
             className="submit-order-button"
-            disabled={state.items.length === 0}
+            disabled={state.items.length === 0 || isSubmitting}
           >
-            Kirim Pesanan (Total: {state.totalItems} item)
+            {isSubmitting ? (
+              <>
+                <Loader2 className="spinning" size={20} />
+                Mengirim Pesanan...
+              </>
+            ) : (
+              `Kirim Pesanan (Total: ${state.totalItems} item)`
+            )}
           </button>
           
-          {state.items.length > 0 && (
+          {state.items.length > 0 && !isSubmitting && (
             <button 
               onClick={clearCart}
               className="clear-cart-button"
