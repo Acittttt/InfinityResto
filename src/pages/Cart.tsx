@@ -28,6 +28,16 @@ const Cart: React.FC = () => {
     setSubmitError(null);
 
     try {
+      // Check if Supabase is configured
+      if (!import.meta.env.VITE_SUPABASE_URL || !import.meta.env.VITE_SUPABASE_ANON_KEY) {
+        throw new Error('Supabase belum dikonfigurasi. Silakan setup environment variables.');
+      }
+
+      if (import.meta.env.VITE_SUPABASE_URL.includes('your-project') || 
+          import.meta.env.VITE_SUPABASE_ANON_KEY.includes('your-anon-key')) {
+        throw new Error('Silakan ganti nilai VITE_SUPABASE_URL dan VITE_SUPABASE_ANON_KEY dengan kredensial Supabase yang sebenarnya.');
+      }
+
       // Create order in database
       const { order, error } = await createOrder(parseInt(tableNumber), state.items);
       

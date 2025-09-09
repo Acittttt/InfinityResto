@@ -74,7 +74,7 @@ const Layout: React.FC<LayoutProps> = ({ children, tableNumber }) => {
 
       {/* Footer */}
       <footer className="footer">
-        <p>&copy; 2024 Infinity Resto. All rights reserved.</p>
+        <p>&copy; 2025 Infinity Resto. All rights reserved.</p>
       </footer>
     </div>
   );
